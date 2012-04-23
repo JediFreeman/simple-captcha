@@ -49,7 +49,8 @@ module SimpleCaptcha #:nodoc
       defaults = {
          :image => simple_captcha_image(key, options),
          :label => options[:label] || I18n.t('simple_captcha.label'),
-         :field => simple_captcha_field(options)
+         :field => simple_captcha_field(options),
+         :description => options[:description] || ''
          }
          
       render :partial => 'simple_captcha/simple_captcha', :locals => { :simple_captcha_options => defaults }
@@ -64,7 +65,7 @@ module SimpleCaptcha #:nodoc
         query = defaults.collect{ |key, value| "#{key}=#{value}" }.join('&')
         url = "/simple_captcha?code=#{simple_captcha_key}&#{query}"
         
-        "<img src='#{url}' alt='captcha' />".html_safe
+        "<img src='#{url}' alt='Loading captcha...' />".html_safe
       end
       
       def simple_captcha_field(options={})
